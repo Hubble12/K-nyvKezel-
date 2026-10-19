@@ -1,0 +1,2 @@
+# K-nyvKezel-
+javascript konstruktorok
