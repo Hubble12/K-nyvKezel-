@@ -80,6 +80,19 @@ function feltoltes(){
     let legregebbiValasztas;
     let legvastagabbValasztas;
 
+    let atlagOldalSzam
+    let szumma = 0
+    let darabSzam = konyvekList.length
+
+    for(let i = 0; i<konyvekList.length; i++){
+        szumma += konyvekList[i].oldalszam
+        console.log(szumma)
+    }
+    console.log("atlagteszt")
+    console.log(szumma)
+    console.log(darabSzam)
+    atlagOldalSzam = Math.round(szumma / darabSzam)
+
     for(let i = 0; i<konyvekList.length; i++){
         if(konyvekList[i].oldalszam > maxVastagsag){
             maxVastagsag = konyvekList[i].oldalszam
@@ -99,8 +112,7 @@ function feltoltes(){
 
 
     let statisztikaDiv = document.getElementById("statisztikaDiv")
-    statisztikaDiv.innerHTML = "Legvastagabb könyv: " + legvastagabbValasztas.cim + "; Oldalak: " + legvastagabbValasztas.oldalszam + "<br>Legregebbi könyv: " + legregebbiValasztas.cim + "; Kiadás: " + legregebbiValasztas.kiadas
-
+    statisztikaDiv.innerHTML = "Legvastagabb könyv: " + legvastagabbValasztas.cim + "; Oldalak: " + legvastagabbValasztas.oldalszam + "<br>Legregebbi könyv: " + legregebbiValasztas.cim + "; Kiadás: " + legregebbiValasztas.kiadas + "<br>Átlagos oldalszám: " + atlagOldalSzam
 
       
 }
@@ -109,7 +121,7 @@ function hozzaadas(){
     let ujCim = document.getElementById("input1").value
     let ujSzerzo = document.getElementById("input2").value
     let ujKiadas = document.getElementById("input3").value
-    let ujOldalSzam = document.getElementById("input4").value
+    let ujOldalSzam = Number(document.getElementById("input4").value)
 
     let ujKonyv = new Konyv(ujCim, ujSzerzo, ujKiadas, ujOldalSzam)
     konyvekList.push(ujKonyv)
