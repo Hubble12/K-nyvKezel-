@@ -45,34 +45,55 @@ function feltoltes(){
   let celpont = document.getElementById('elemTabla');
   celpont.innerHTML = "";
 
+    let tabla = document.createElement("table");
+    let fejlec = document.createElement("thead");
+    fejlec.innerHTML = "<tr><th>Cím</th><th>Szerző</th><th>Kiadás éve</th><th>Oldalszám</th><th>Kölcsönözve</th><th>Műveletek</th></tr>";
+    tabla.appendChild(fejlec);
+    let torzs = document.createElement("tbody");
+
     for(let i = 0; i<konyvekList.length; i++){
         if(kolcsonzottSzuro && konyvekList[i].kolcsonozve){
         }
         else{
+                    let konyv = konyvekList[i];
+                    let sor = document.createElement("tr");
 
+                    [konyv.cim, konyv.szerzo, konyv.kiadas, konyv.oldalszam, konyv.kolcsonozve ? "Igen" : "Nem"].forEach(function(ertek){
+                        let cella = document.createElement("td");
+                        cella.textContent = ertek;
+                        sor.appendChild(cella);
+                    });
 
-  let elem = document.createElement("div");
-        elem.innerText = konyvekList[i].cim +"; Szerző: "+ konyvekList[i].szerzo +"; Kiadás: "+ konyvekList[i].kiadas +"; Oldalak: "+ konyvekList[i].oldalszam + "; Kölcsönözve: " + konyvekList[i].kolcsonozve
-   
-   //-------------------------------------------------------------------------
-    let kolcsonozGomb = document.createElement("button");
-    kolcsonozGomb.innerText = "Kölcsönöz";
-    kolcsonozGomb.onclick = function() {
-      konyvekList[i].kolcsonoz();
-    };
-    elem.appendChild(kolcsonozGomb);
+                    let muveletek = document.createElement("td");
+                    let kolcsonozGomb = document.createElement("button");
+                    kolcsonozGomb.innerText = "Kölcsönöz";
+                    kolcsonozGomb.onclick = function() {
+                        konyv.kolcsonoz();
+                    };
+                    muveletek.appendChild(kolcsonozGomb);
 
-
-    let visszahozGomb = document.createElement("button");
-    visszahozGomb.innerText = "Visszahoz";
-    visszahozGomb.onclick = function() {
-      konyvekList[i].visszahoz();
-    };
-    elem.appendChild(visszahozGomb);
-    //-------------------------------------------------------------------------
-    celpont.appendChild(elem);
-}
+                    let visszahozGomb = document.createElement("button");
+                    visszahozGomb.innerText = "Visszahoz";
+                    visszahozGomb.onclick = function() {
+                        konyv.visszahoz();
+                    };
+                    muveletek.appendChild(visszahozGomb);
+                    sor.appendChild(muveletek);
+                    torzs.appendChild(sor);
+                }
     }
+
+        if(torzs.childElementCount === 0){
+            let uresSor = document.createElement("tr");
+            let uresCella = document.createElement("td");
+            uresCella.colSpan = 6;
+            uresCella.textContent = "Nincs megjeleníthető könyv.";
+            uresSor.appendChild(uresCella);
+            torzs.appendChild(uresSor);
+        }
+
+        tabla.appendChild(torzs);
+        celpont.appendChild(tabla);
 
     let maxVastagsag = 0
     let legregebbiKonyv = 3000

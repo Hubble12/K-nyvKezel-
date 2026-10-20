@@ -4,6 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Könyvkezelő</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            color: #202a33;
+        }
+
+        #elemTabla {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 0.7rem 0.85rem;
+            border-bottom: 1px solid #d7dee4;
+        }
+
+        th {
+            background: #edf2f5;
+            font-weight: 600;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f7f9fa;
+        }
+
+        td:last-child {
+            white-space: nowrap;
+        }
+
+        td button + button {
+            margin-left: 0.4rem;
+        }
+
+        #statisztikaDiv {
+            margin-top: 1.5rem;
+            line-height: 1.7;
+        }
+    </style>
 </head>
 <body>
     
