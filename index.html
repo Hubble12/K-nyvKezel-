@@ -4,73 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Könyvkezelő</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 2rem;
-            color: #202a33;
-        }
-
-        #elemTabla {
-            overflow-x: auto;
-            margin-top: 1rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 0.7rem 0.85rem;
-            border-bottom: 1px solid #d7dee4;
-        }
-
-        th {
-            background: #edf2f5;
-            font-weight: 600;
-        }
-
-        tbody tr:nth-child(even) {
-            background: #f7f9fa;
-        }
-
-        td:last-child {
-            white-space: nowrap;
-        }
-
-        td button + button {
-            margin-left: 0.4rem;
-        }
-
-        #statisztikaDiv {
-            margin-top: 1.5rem;
-            line-height: 1.7;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <main class="app-shell">
+        <header class="page-header">
+            <p class="eyebrow">Személyes könyvtár</p>
+            <h1>Könyvkezelő</h1>
+            <p class="page-intro">Tartsd rendben a könyveidet és a kölcsönzéseket.</p>
+        </header>
 
-    <h2>Könyv hozzáadása (cím, szerző, kiadás éve, oldalszám)</h2>
-    <input type="text" id="input1">
-    <input type="text" id="input2">
-    <input type="number" id="input3">
-    <input type="number" id="input4">
-    <button onclick="hozzaadas()">Hozzáadás</button>
-    <button onclick="szures1()" id="buttonSzures1">Szűrés</button>
+        <section class="controls" aria-labelledby="add-book-heading">
+            <h2 id="add-book-heading">Új könyv hozzáadása</h2>
+            <div class="book-form">
+                <label for="input1">Cím<input type="text" id="input1"></label>
+                <label for="input2">Szerző<input type="text" id="input2"></label>
+                <label for="input3">Kiadás éve<input type="number" id="input3"></label>
+                <label for="input4">Oldalszám<input type="number" id="input4"></label>
+                <div class="form-actions">
+                    <button onclick="hozzaadas()">Hozzáadás</button>
+                    <button onclick="szures1()" id="buttonSzures1" class="button-secondary">Szűrés</button>
+                </div>
+            </div>
+        </section>
 
-    <div id="elemTabla">
+        <section class="library" aria-label="Könyvek listája">
+            <div id="elemTabla"></div>
+        </section>
 
-    </div>
-
-        <div id="statisztikaDiv">
-
-    </div>
-
-
-
+        <aside id="statisztikaDiv" aria-label="Könyvtár statisztikák"></aside>
+    </main>
 
     <script src="kód.js"></script>
 </body>

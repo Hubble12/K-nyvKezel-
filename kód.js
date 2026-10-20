@@ -29,6 +29,13 @@ function Konyv(pCim, pSzerzo, pKiadas, pOldalszam) {
     this.kolcsonozve=false
     feltoltes()
   };
+    this.torol = function() {
+    let index = konyvekList.indexOf(this);
+  if (index > -1) {
+    konyvekList.splice(index, 1);
+  }
+    feltoltes()
+  };
 }
 
 //-------------------------------------------------------------------------
@@ -78,6 +85,16 @@ function feltoltes(){
                         konyv.visszahoz();
                     };
                     muveletek.appendChild(visszahozGomb);
+
+                    let torolGomb = document.createElement("button");
+                    torolGomb.innerText = "Töröl";
+                    torolGomb.onclick = function() {
+                        konyv.torol();
+                        
+                    };
+                    muveletek.appendChild(torolGomb);
+
+
                     sor.appendChild(muveletek);
                     torzs.appendChild(sor);
                 }
@@ -90,6 +107,8 @@ function feltoltes(){
             uresCella.textContent = "Nincs megjeleníthető könyv.";
             uresSor.appendChild(uresCella);
             torzs.appendChild(uresSor);
+            let statisztikaDiv = document.getElementById("statisztikaDiv")
+            statisztikaDiv.innerHTML = "Nincs megjeleníthető könyv a szűrés miatt."
         }
 
         tabla.appendChild(torzs);
