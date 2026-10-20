@@ -13,11 +13,30 @@ function szures1(){
     feltoltes()
 }
 
-function Konyv(pCim, pSzerzo, pKiadas, pOldalszam) {
+function frissitMufajSzuro(){
+    let mufajSzuro = document.getElementById("genreFilter")
+    let valasztottMufaj = mufajSzuro.value
+    let mufajok = [...new Set(konyvekList.map(function(konyv){ return konyv.mufaj }).filter(Boolean))].sort()
+
+    mufajSzuro.innerHTML = '<option value="">Minden műfaj</option>'
+    mufajok.forEach(function(mufaj){
+        let opcio = document.createElement("option")
+        opcio.value = mufaj
+        opcio.textContent = mufaj
+        mufajSzuro.appendChild(opcio)
+    })
+
+    if(mufajok.includes(valasztottMufaj)){
+        mufajSzuro.value = valasztottMufaj
+    }
+}
+
+function Konyv(pCim, pSzerzo, pKiadas, pOldalszam, pMufaj) {
   this.cim = pCim;
   this.szerzo = pSzerzo;
   this.kiadas = pKiadas;
   this.oldalszam = pOldalszam;
+    this.mufaj = pMufaj;
   this.kolcsonozve = false;
 
   //metódusok
@@ -39,9 +58,9 @@ function Konyv(pCim, pSzerzo, pKiadas, pOldalszam) {
 }
 
 //-------------------------------------------------------------------------
-let konyv1 = new Konyv("Egri csillagok", "Gárdonyi Géza", 1901, 650);
-let konyv2 = new Konyv("Az arany ember", "Jókai Mór", 1872, 550);
-let konyv3 = new Konyv("Toldi", "Arany János", 1846, 80);
+let konyv1 = new Konyv("Egri csillagok", "Gárdonyi Géza", 1901, 650, "Történelmi regény");
+let konyv2 = new Konyv("Az arany ember", "Jókai Mór", 1872, 550, "Regény");
+let konyv3 = new Konyv("Toldi", "Arany János", 1846, 80, "Vers");
 konyvekList.push(konyv1)
 konyvekList.push(konyv2)
 konyvekList.push(konyv3)
@@ -49,23 +68,25 @@ console.log(konyvekList)
 //-------------------------------------------------------------------------
 
 function feltoltes(){
+    frissitMufajSzuro()
   let celpont = document.getElementById('elemTabla');
   celpont.innerHTML = "";
 
     let tabla = document.createElement("table");
     let fejlec = document.createElement("thead");
-    fejlec.innerHTML = "<tr><th>Cím</th><th>Szerző</th><th>Kiadás éve</th><th>Oldalszám</th><th>Kölcsönözve</th><th>Műveletek</th></tr>";
+    fejlec.innerHTML = "<tr><th>Cím</th><th>Szerző</th><th>Kiadás éve</th><th>Oldalszám</th><th>Műfaj</th><th>Kölcsönözve</th><th>Műveletek</th></tr>";
     tabla.appendChild(fejlec);
     let torzs = document.createElement("tbody");
+    let valasztottMufaj = document.getElementById("genreFilter").value;
 
     for(let i = 0; i<konyvekList.length; i++){
-        if(kolcsonzottSzuro && konyvekList[i].kolcsonozve){
+        let konyv = konyvekList[i];
+        if((kolcsonzottSzuro && konyv.kolcsonozve) || (valasztottMufaj && konyv.mufaj !== valasztottMufaj)){
         }
         else{
-                    let konyv = konyvekList[i];
                     let sor = document.createElement("tr");
 
-                    [konyv.cim, konyv.szerzo, konyv.kiadas, konyv.oldalszam, konyv.kolcsonozve ? "Igen" : "Nem"].forEach(function(ertek){
+                    [konyv.cim, konyv.szerzo, konyv.kiadas, konyv.oldalszam, konyv.mufaj, konyv.kolcsonozve ? "Igen" : "Nem"].forEach(function(ertek){
                         let cella = document.createElement("td");
                         cella.textContent = ertek;
                         sor.appendChild(cella);
@@ -103,7 +124,7 @@ function feltoltes(){
         if(torzs.childElementCount === 0){
             let uresSor = document.createElement("tr");
             let uresCella = document.createElement("td");
-            uresCella.colSpan = 6;
+            uresCella.colSpan = 7;
             uresCella.textContent = "Nincs megjeleníthető könyv.";
             uresSor.appendChild(uresCella);
             torzs.appendChild(uresSor);
@@ -162,8 +183,9 @@ function hozzaadas(){
     let ujSzerzo = document.getElementById("input2").value
     let ujKiadas = document.getElementById("input3").value
     let ujOldalSzam = Number(document.getElementById("input4").value)
+    let ujMufaj = document.getElementById("input5").value.trim()
 
-    let ujKonyv = new Konyv(ujCim, ujSzerzo, ujKiadas, ujOldalSzam)
+    let ujKonyv = new Konyv(ujCim, ujSzerzo, ujKiadas, ujOldalSzam, ujMufaj)
     konyvekList.push(ujKonyv)
 
     feltoltes()

@@ -9,9 +9,9 @@
 <body>
     <main class="app-shell">
         <header class="page-header">
-            <p class="eyebrow">Személyes könyvtár</p>
+            <p class="eyebrow"></p>
             <h1>Könyvkezelő</h1>
-            <p class="page-intro">Tartsd rendben a könyveidet és a kölcsönzéseket.</p>
+            <p class="page-intro"></p>
         </header>
 
         <section class="controls" aria-labelledby="add-book-heading">
@@ -21,6 +21,18 @@
                 <label for="input2">Szerző<input type="text" id="input2"></label>
                 <label for="input3">Kiadás éve<input type="number" id="input3"></label>
                 <label for="input4">Oldalszám<input type="number" id="input4"></label>
+                <label for="input5">Műfaj
+                    <select id="input5">
+                        <option value="" disabled selected>Válassz műfajt</option>
+                        <option value="Regény">Regény</option>
+                        <option value="Történelmi regény">Történelmi regény</option>
+                        <option value="Vers">Vers</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Krimi">Krimi</option>
+                        <option value="Sci-fi">Sci-fi</option>
+                        <option value="Egyéb">Egyéb</option>
+                    </select>
+                </label>
                 <div class="form-actions">
                     <button onclick="hozzaadas()">Hozzáadás</button>
                     <button onclick="szures1()" id="buttonSzures1" class="button-secondary">Szűrés</button>
@@ -29,6 +41,11 @@
         </section>
 
         <section class="library" aria-label="Könyvek listája">
+            <label class="genre-filter" for="genreFilter">Műfaj szerinti szűrés
+                <select id="genreFilter" onchange="feltoltes()">
+                    <option value="">Minden műfaj</option>
+                </select>
+            </label>
             <div id="elemTabla"></div>
         </section>
 
